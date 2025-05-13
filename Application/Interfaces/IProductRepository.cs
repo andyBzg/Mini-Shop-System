@@ -6,5 +6,8 @@ namespace Application.Interfaces
     {
         List<Product> LoadAllProducts();
         Product? GetProductById(Guid id);
+        void Add(Product product);
+        void Delete(Product product);
+        //TODO void Update(Product product);
     }
 }

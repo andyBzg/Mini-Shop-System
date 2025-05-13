@@ -14,12 +14,30 @@ namespace Application.Services
 
         public List<Product> GetProducts()
         {
-            return _productRepository.LoadAllProducts();
+            return _productRepository.LoadAllProducts().Where(p => !p.IsDeleted).ToList();
         }
 
         public Product? GetProductById(Guid id)
         {
             return _productRepository.GetProductById(id);
+        }
+
+        public void AddNewProduct(string name, string description, decimal price, int stock)
+        {
+            Guid id = Guid.NewGuid();
+            Product product = new Product(id, name, description, price, stock);
+            _productRepository.Add(product);
+        }
+
+        public bool DeleteProduct(Guid id)
+        {
+            Product? product = _productRepository.GetProductById(id);
+            if (product == null) 
+                return false; 
+
+            product.IsDeleted = true;
+            _productRepository.Delete(product);
+            return true;
         }
     }
 }

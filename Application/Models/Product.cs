@@ -9,8 +9,9 @@
         public int Stock { get; set; }
         public bool IsDeleted { get; set; } = false;
 
-        public Product(string name, string description, decimal price, int stock)
+        public Product(Guid id, string name, string description, decimal price, int stock)
         {
+            Id = id;
             Name = name;
             Description = description;
             Price = price;
