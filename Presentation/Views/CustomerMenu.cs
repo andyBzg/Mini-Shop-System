@@ -56,8 +56,8 @@ namespace Presentation.Views
             }
             else
             {
-                //TODO implement logic to view product list 
-                products.ForEach(Console.WriteLine);
+                ProductMenu productMenu = new ProductMenu(products);
+                productMenu.RunProductMenu();
             }
 
             Console.ReadKey();
