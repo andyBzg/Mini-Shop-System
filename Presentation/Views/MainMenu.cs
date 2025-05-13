@@ -8,10 +8,12 @@ namespace Presentation.Views
     internal class MainMenu
     {
         private readonly IUserService _userService;
+        private readonly IProductService _productService;
 
-        public MainMenu(IUserService userService)
+        public MainMenu(IUserService userService, IProductService productService)
         {
             _userService = userService;
+            _productService = productService;
         }
 
         public void RunMainMenu()
@@ -84,7 +86,7 @@ namespace Presentation.Views
                 }
                 else
                 {
-                    CustomerMenu customerMenu = new CustomerMenu(currentUser);
+                    CustomerMenu customerMenu = new CustomerMenu(currentUser, _productService);
                     customerMenu.RunCustomerMenu();
                 }
             }

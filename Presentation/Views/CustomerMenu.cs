@@ -1,4 +1,5 @@
-﻿using Application.Models;
+﻿using Application.Interfaces;
+using Application.Models;
 using Presentation.UI;
 
 namespace Presentation.Views
@@ -6,10 +7,12 @@ namespace Presentation.Views
     internal class CustomerMenu
     {
         private readonly User _user;
+        private readonly IProductService _productService;
 
-        public CustomerMenu(User user)
+        public CustomerMenu(User user, IProductService productService)
         {
             _user = user;
+            _productService = productService;
         }
 
         public void RunCustomerMenu()
@@ -44,8 +47,17 @@ namespace Presentation.Views
 
         private void BrowseProducts()
         {
-            //TODO implement logic to view product list 
-            Console.WriteLine("Product list goes here...");
+            List<Product> products = _productService.GetProducts();
+            if (products.Count == 0)
+            {
+                Console.WriteLine("Product list is empty");
+            }
+            else
+            {
+                //TODO implement logic to view product list 
+                products.ForEach(Console.WriteLine);
+            }
+
             Console.ReadKey();
         }
 

@@ -4,10 +4,13 @@ using Infrastructure.Repositories;
 using Presentation.Views;
 
 
-string filePath = "user_database.json";
-IUserRepository userRepository = new UserRepository(filePath);
+string userStorageFilePath = "user_database.json";
+string productStorageFilePath = "product_database.json";
+IUserRepository userRepository = new UserRepository(userStorageFilePath);
+IProductRepository productRepository = new ProductRepository(productStorageFilePath);
 IPasswordHasher passwordHasher = new PasswordHasher();
 IUserService userService = new UserService(userRepository, passwordHasher);
-MainMenu mainMenu = new MainMenu(userService);
+IProductService productService = new ProductService(productRepository);
+MainMenu mainMenu = new MainMenu(userService, productService);
 
 mainMenu.RunMainMenu();
