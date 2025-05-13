@@ -1,8 +1,9 @@
-﻿using Application.Interfaces;
+﻿using Application;
+using Application.Interfaces;
 using Application.Models;
-using Mini_Shop_System.Menu;
+using Presentation.UI;
 
-namespace Application.Views
+namespace Presentation.Views
 {
     internal class MainMenu
     {
@@ -18,7 +19,7 @@ namespace Application.Views
             string prompt = "Welcome to Mini-Shop! What would you like to do?" +
                 "\n(Use the arrow keys to navigate through options and press enter to select an option.)";
             string[] options = { "Register", "Login", "About", "Exit" };
-
+           
             Menu mainMenu = new Menu(prompt, options);
             int selectedIndex = mainMenu.Run();
 
@@ -78,13 +79,13 @@ namespace Application.Views
 
                 if (currentUser.Role == UserRole.Admin)
                 {
-                    //TODO Run admin menu
-                    Console.WriteLine("Placeholder for admin menu");
+                    AdminMenu adminMenu = new AdminMenu(currentUser);
+                    adminMenu.RunAdminMenu();
                 }
                 else
                 {
-                    //TODO Run customer menu
-                    Console.WriteLine("Placeholder for customer menu");
+                    CustomerMenu customerMenu = new CustomerMenu(currentUser);
+                    customerMenu.RunCustomerMenu();
                 }
             }
             else

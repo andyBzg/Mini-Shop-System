@@ -1,4 +1,4 @@
-﻿namespace Mini_Shop_System.Menu
+﻿namespace Presentation.UI
 {
     internal class Menu
     {
@@ -53,8 +53,8 @@
                 if (keyPressed == ConsoleKey.UpArrow)
                 {
                     SelectedIndex--;
-                    if (SelectedIndex == -1)                    
-                        SelectedIndex = Options.Length - 1;                    
+                    if (SelectedIndex == -1)
+                        SelectedIndex = Options.Length - 1;
                 }
                 else if (keyPressed == ConsoleKey.DownArrow)
                 {
