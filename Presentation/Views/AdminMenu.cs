@@ -15,28 +15,33 @@ namespace Presentation.Views
 
         public void RunAdminMenu()
         {
-            string prompt = $"Welcome {_user.Username}! What would you like to do?";
-            string[] options = { "Product Management", "User Management", "Statistics", "Exit" };
-
-            Menu adminMenu = new Menu(prompt, options);
-            int selectedIndex = adminMenu.Run();
-
-            switch (selectedIndex)
+            while (true)
             {
-                case 0:
-                    ManageProducts();
-                    break;
-                case 1:
-                    ManageUsers();
-                    break;
-                case 2:
-                    DisplayStatistics();
-                    break;
-                case 3:
-                    Exit();
-                    break;
-                default:
-                    break;
+                string prompt = $"Welcome {_user.Username}! What would you like to do?";
+                string[] options = { "Product Management", "User Management", "Statistics", "Back", "Exit" };
+
+                Menu adminMenu = new Menu(prompt, options);
+                int selectedIndex = adminMenu.Run();
+
+                switch (selectedIndex)
+                {
+                    case 0:
+                        ManageProducts();
+                        break;
+                    case 1:
+                        ManageUsers();
+                        break;
+                    case 2:
+                        DisplayStatistics();
+                        break;
+                    case 3:
+                        return;
+                    case 4:
+                        Exit();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

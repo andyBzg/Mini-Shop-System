@@ -18,29 +18,32 @@ namespace Presentation.Views
 
         public void RunMainMenu()
         {
-            string prompt = "Welcome to Mini-Shop! What would you like to do?" +
-                "\n(Use the arrow keys to navigate through options and press enter to select an option.)";
-            string[] options = { "Register", "Login", "About", "Exit" };
-           
-            Menu mainMenu = new Menu(prompt, options);
-            int selectedIndex = mainMenu.Run();
-
-            switch (selectedIndex)
+            while (true)
             {
-                case 0:
-                    RegisterNewUser();
-                    break;
-                case 1:
-                    Login();
-                    break;
-                case 2:
-                    DisplayAboutInfo();
-                    break;
-                case 3:
-                    Exit();
-                    break;
-                default:
-                    break;
+                string prompt = "Welcome to Mini-Shop! What would you like to do?" +
+                    "\n(Use the arrow keys to navigate through options and press enter to select an option.)";
+                string[] options = { "Register", "Login", "About", "Exit" };
+
+                Menu mainMenu = new Menu(prompt, options);
+                int selectedIndex = mainMenu.Run();
+
+                switch (selectedIndex)
+                {
+                    case 0:
+                        RegisterNewUser();
+                        break;
+                    case 1:
+                        Login();
+                        break;
+                    case 2:
+                        DisplayAboutInfo();
+                        break;
+                    case 3:
+                        Exit();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

@@ -20,7 +20,7 @@ namespace Presentation.Views
             while (true)
             {
                 string prompt = $"Welcome {_user.Username}! What would you like to do?";
-                string[] options = { "Browse Products", "View Cart", "Place Order", "Exit" };
+                string[] options = { "Browse Products", "View Cart", "Place Order", "Back", "Exit" };
 
                 Menu adminMenu = new Menu(prompt, options);
                 int selectedIndex = adminMenu.Run();
@@ -37,6 +37,8 @@ namespace Presentation.Views
                         PlaceOrder();
                         break;
                     case 3:
+                        return;
+                    case 4:
                         Exit();
                         break;
                     default:
