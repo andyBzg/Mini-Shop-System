@@ -1,6 +1,7 @@
 ﻿using Application;
 using Application.Interfaces;
 using Application.Models;
+using Application.Services;
 using Presentation.UI;
 
 namespace Presentation.Views
@@ -9,11 +10,13 @@ namespace Presentation.Views
     {
         private readonly IUserService _userService;
         private readonly IProductService _productService;
+        private readonly ICartService _cartService;
 
-        public MainMenu(IUserService userService, IProductService productService)
+        public MainMenu(IUserService userService, IProductService productService, ICartService cartService)
         {
             _userService = userService;
             _productService = productService;
+            _cartService = cartService;
         }
 
         public void RunMainMenu()
@@ -89,7 +92,7 @@ namespace Presentation.Views
                 }
                 else
                 {
-                    CustomerMenu customerMenu = new CustomerMenu(currentUser, _productService);
+                    CustomerMenu customerMenu = new CustomerMenu(currentUser, _productService, _cartService);
                     customerMenu.RunCustomerMenu();
                 }
             }

@@ -8,11 +8,13 @@ namespace Presentation.Views
     {
         private readonly User _user;
         private readonly IProductService _productService;
+        private readonly ICartService _cartService;
 
-        public CustomerMenu(User user, IProductService productService)
+        public CustomerMenu(User user, IProductService productService, ICartService cartService)
         {
             _user = user;
             _productService = productService;
+            _cartService = cartService;
         }
 
         public void RunCustomerMenu()
@@ -56,7 +58,7 @@ namespace Presentation.Views
             }
             else
             {
-                ProductMenu productMenu = new ProductMenu(products);
+                ProductMenu productMenu = new ProductMenu(_productService, _cartService);
                 productMenu.RunProductMenu();
             }
 

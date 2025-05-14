@@ -59,5 +59,16 @@ namespace Application.Services
             _productRepository.Update(product);
             return true;
         }
+
+        public bool ReduceProductQuantity(Guid id, int quantity)
+        {
+            Product? product = _productRepository.GetById(id);
+            if (product == null)
+                return false;
+
+            product.Stock -= quantity;
+            _productRepository.Update(product);
+            return true;
+        }
     }
 }

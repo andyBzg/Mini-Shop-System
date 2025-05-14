@@ -1,15 +1,18 @@
-﻿using Application.Models;
+﻿using Application.Interfaces;
+using Application.Models;
 using Presentation.UI;
 
 namespace Presentation.Views
 {
     internal class ProductMenu
     {
-        private readonly List<Product> _products;
+        private readonly IProductService _productService;
+        private readonly ICartService _cartService;
 
-        public ProductMenu(List<Product> products)
+        public ProductMenu(IProductService productService, ICartService cartService)
         {
-            _products = products;
+            _productService = productService;
+            _cartService = cartService;
         }
 
         public void RunProductMenu()
@@ -17,19 +20,55 @@ namespace Presentation.Views
             while (true)
             {
                 string prompt = "Please select a Product";
-                string[] options = _products.Select(p => p.Name).ToArray();
+                List<Product> products = _productService.GetAvailableProducts();
+                string[] options = products.Select(p => p.Name).ToArray();
 
                 Menu productMenu = new Menu(prompt, options);
                 int index = productMenu.Run();
 
-                Console.Clear();
-                Console.WriteLine($"Product Title: {_products[index].Name}");
-                Console.WriteLine($"Description: {_products[index].Description}");
-                Console.WriteLine($"Price: {_products[index].Price}");
-                Console.WriteLine($"Stock: {_products[index].Stock}");
+                Guid selectedProductId = products[index].Id;
+                Product? currentProduct = _productService.GetProductById(selectedProductId);
+
+                if (currentProduct == null)
+                {
+                    Console.WriteLine("Selected product not found");
+                    return;
+                }
+
+                bool check;
+                int quantity;
+
+                ShowSelectedProductDetails(currentProduct);
+                while (true)
+                {
+                    Console.Write("\nEnter quantity to add to cart: ");
+                    check = int.TryParse(Console.ReadLine(), out quantity);
+
+                    if (check && quantity >= 0 && quantity <= currentProduct.Stock)
+                        break;
+                    else
+                        Console.WriteLine($"Quantity must be 0 or {currentProduct.Stock}");
+
+                    Console.ReadKey();
+                }
+
+                bool isItemAdded = _cartService.AddToCart(currentProduct.Id, quantity);
+                if (isItemAdded)
+                    Console.WriteLine($"Successfully added {quantity} item(s) to Shopping Cart");
+                else if (quantity == 0)
+                    Console.WriteLine("Nothing added");
+
                 Console.ReadKey();
-                //TODO product amount input, option to add to cart
             }
+        }
+
+        private static void ShowSelectedProductDetails(Product selectedProduct)
+        {
+            Console.Clear();
+            Console.WriteLine($"Product Title: {selectedProduct.Name}");
+            Console.WriteLine($"Description: {selectedProduct.Description}");
+            Console.WriteLine($"Price: {selectedProduct.Price}");
+            Console.WriteLine($"Stock: {selectedProduct.Stock}");
         }
     }
 }
