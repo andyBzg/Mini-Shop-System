@@ -22,7 +22,7 @@ namespace Presentation.Views
             while (true)
             {
                 string prompt = $"Welcome {_user.Username}! What would you like to do?";
-                string[] options = { "Browse Products", "View Cart", "Place Order", "Back", "Exit" };
+                string[] options = { "Browse Products", "View Cart", "Place Order", "Log out", "Exit" };
 
                 Menu adminMenu = new Menu(prompt, options);
                 int selectedIndex = adminMenu.Run();
@@ -55,21 +55,19 @@ namespace Presentation.Views
             if (products.Count == 0)
             {
                 Console.WriteLine("Product list is empty");
+                WaitForKey("\n Press any key to continiue ...");
             }
             else
             {
                 ProductMenu productMenu = new ProductMenu(_productService, _cartService);
                 productMenu.RunProductMenu();
             }
-
-            Console.ReadKey();
         }
 
         private void ViewCart()
         {
-            //TODO implement logic to view customer cart 
-            Console.WriteLine("Cart contents...");
-            Console.ReadKey();
+            CartMenu cartMenu = new CartMenu(_cartService);
+            cartMenu.RunCartMenu();
         }
 
         private void PlaceOrder()

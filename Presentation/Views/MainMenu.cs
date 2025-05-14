@@ -1,7 +1,6 @@
 ﻿using Application;
 using Application.Interfaces;
 using Application.Models;
-using Application.Services;
 using Presentation.UI;
 
 namespace Presentation.Views
@@ -24,7 +23,7 @@ namespace Presentation.Views
             while (true)
             {
                 string prompt = "Welcome to Mini-Shop! What would you like to do?" +
-                    "\n(Use the arrow keys to navigate through options and press enter to select an option.)";
+                    "\n(Use the arrow keys to navigate through options and press ENTER to select an option.)";
                 string[] options = { "Register", "Login", "About", "Exit" };
 
                 Menu mainMenu = new Menu(prompt, options);
@@ -83,7 +82,7 @@ namespace Presentation.Views
             {
                 Console.Clear();
                 Console.WriteLine($"Welcome, {currentUser.Username}! ({currentUser.Role.ToString()})");
-                WaitForKey("\nPress any key to continiue ...");
+                Thread.Sleep(1000);
 
                 if (currentUser.Role == UserRole.Admin)
                 {

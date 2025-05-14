@@ -25,5 +25,9 @@ namespace Application.Services
             _cartItems.Add(cartItem);
             return true;
         }
+
+        public List<CartItem> GetCartItems() { 
+            return _cartItems;
+        }
     }
 }
