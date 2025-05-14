@@ -62,6 +62,10 @@
                     if (SelectedIndex == Options.Length)
                         SelectedIndex = 0;
                 }
+                else if (keyPressed == ConsoleKey.Escape)
+                {
+                    return -1;
+                }
             } while (keyPressed != ConsoleKey.Enter);
 
             return SelectedIndex;
