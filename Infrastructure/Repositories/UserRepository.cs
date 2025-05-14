@@ -43,6 +43,11 @@ namespace Infrastructure.Repositories
             File.WriteAllText(_filePath, jsonString);
         }
 
+        public Dictionary<Guid, User> GetAll()
+        {
+            return LoadUsers();
+        }
+
         public void Add(Guid guid, User user)
         {
             Dictionary<Guid, User> users = LoadUsers();

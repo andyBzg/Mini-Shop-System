@@ -4,7 +4,7 @@ namespace Application.Interfaces
 {
     public interface IUserRepository
     {
-        List<User> GetAll();
+        Dictionary<Guid, User> GetAll();
         User? GetUserByEmail(string email);
         void Add(Guid guid, User user);
     }
