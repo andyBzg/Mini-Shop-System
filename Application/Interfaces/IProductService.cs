@@ -4,9 +4,10 @@ namespace Application.Interfaces
 {
     public interface IProductService
     {
-        List<Product> GetProducts();
+        List<Product> GetAvailableProducts();
         Product? GetProductById(Guid id);
-        void AddNewProduct(string name, string description, decimal price, int stock);
+        bool AddNewProduct(string name, string description, decimal price, int stock);
+        bool UpdateProduct(Guid id, string name, string description, decimal price, int stock);
         bool DeleteProduct(Guid id);
     }
 }

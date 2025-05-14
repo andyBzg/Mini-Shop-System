@@ -49,7 +49,7 @@ namespace Presentation.Views
 
         private void BrowseProducts()
         {
-            List<Product> products = _productService.GetProducts();
+            List<Product> products = _productService.GetAvailableProducts();
             if (products.Count == 0)
             {
                 Console.WriteLine("Product list is empty");

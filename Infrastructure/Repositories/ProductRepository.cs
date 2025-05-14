@@ -13,7 +13,7 @@ namespace Infrastructure.Repositories
             _filePath = filePath;
         }
 
-        private void SaveProducts(List<Product> products)
+        private void WriteJsonToFile(List<Product> products)
         {
             var options = new JsonSerializerOptions
             {
@@ -26,7 +26,7 @@ namespace Infrastructure.Repositories
             File.WriteAllText(_filePath, jsonString);
         }
 
-        public List<Product> LoadAllProducts()
+        public List<Product> LoadAll()
         {
             if (!File.Exists(_filePath))
                 return new List<Product>();
@@ -43,27 +43,27 @@ namespace Infrastructure.Repositories
             return products ?? new List<Product>();
         }
 
-        public Product? GetProductById(Guid id)
+        public Product? GetById(Guid id)
         {
-            List<Product> products = LoadAllProducts();
+            List<Product> products = LoadAll();
             return products.FirstOrDefault(p => p.Id == id);
         }
 
-        public void Add(Product product)
-        {            
-            List<Product> products = LoadAllProducts();
+        public void Save(Product product)
+        {
+            List<Product> products = LoadAll();
             products.Add(product);
-            SaveProducts(products);
+            WriteJsonToFile(products);
         }
 
-        public void Delete(Product product)
+        public void Update(Product product)
         {
-            List<Product > products = LoadAllProducts();
+            List<Product> products = LoadAll();
             int index = products.FindIndex(p => p.Id == product.Id);
             if (index != -1)
             {
                 products[index] = product;
-                SaveProducts(products);
+                WriteJsonToFile(products);
             }
         }
     }
