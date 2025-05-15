@@ -27,7 +27,7 @@ namespace Presentation.Views
                 int index = productMenu.Run();
 
                 if (index == -1)
-                    return;
+                    break;
 
                 Guid selectedProductId = products[index].Id;
                 Product? currentProduct = _productService.GetProductById(selectedProductId);
@@ -35,41 +35,45 @@ namespace Presentation.Views
                 if (currentProduct == null)
                 {
                     Console.WriteLine("Selected product not found");
-                    return;
+                    break;
                 }
 
                 ShowSelectedProductDetails(currentProduct);
+                HandleProductAction(currentProduct);                
+            }
+        }
 
-                Console.WriteLine("\nPress ESC to go back; Enter to proceed");
-                ConsoleKey keyPressed = Console.ReadKey(true).Key;
+        private void HandleProductAction(Product product)
+        {
+            Console.WriteLine("\nWould you like to add this Product to Shopping Cart? \n(Press ENTER to confirm; ESC to go back)");
+            ConsoleKey keyPressed = Console.ReadKey(true).Key;
 
-                if (keyPressed == ConsoleKey.Escape)
-                    break;
+            if (keyPressed == ConsoleKey.Escape)
+                return;
 
-                if (keyPressed == ConsoleKey.Enter)
+            if (keyPressed == ConsoleKey.Enter)
+            {
+                while (true)
                 {
-                    while (true)
-                    {
-                        Console.Write("\nEnter quantity to add to cart: ");
-                        bool check = int.TryParse(Console.ReadLine(), out int quantity);
+                    Console.Write("\nEnter quantity to add to cart: ");
+                    bool check = int.TryParse(Console.ReadLine(), out int quantity);
 
-                        if (check && quantity > 0 && quantity <= currentProduct.Stock)
-                        {
-                            bool sucess = _cartService.AddToCart(currentProduct.Id, quantity);
-                            
-                            if (sucess)
-                                Console.WriteLine($"Successfully added {quantity} item(s) to Shopping Cart");
-                            else 
-                                Console.WriteLine("Fail! Something went wrong");
-                            
-                            WaitForKey("\nPress any key to continiue ...");
-                            break;
-                        }
+                    if (check && quantity > 0 && quantity <= product.Stock)
+                    {
+                        bool sucess = _cartService.AddToCart(product.Id, quantity);
+
+                        if (sucess)
+                            Console.WriteLine($"Successfully added {quantity} item(s) to Shopping Cart");
                         else
-                        {
-                            Console.WriteLine($"Quantity must be between 1 and {currentProduct.Stock}");
-                            WaitForKey("\nPress any key to continiue ...");
-                        }
+                            Console.WriteLine("Failed to add item");
+
+                        WaitForKey("\nPress any key to continiue ...");
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Quantity must be between 1 and {product.Stock}");
+                        WaitForKey("\nPress any key to continiue ...");
                     }
                 }
             }

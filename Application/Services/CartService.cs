@@ -16,7 +16,7 @@ namespace Application.Services
 
         public List<CartItem> GetCartItems()
         {
-            return _cartItems;
+            return _cartItems.ToList();
         }
 
         public bool AddToCart(Guid id, int quantity)

@@ -39,6 +39,7 @@ namespace Presentation.Views
                         PlaceOrder();
                         break;
                     case 3:
+                        LogOut();
                         return;
                     case 4:
                         Exit();
@@ -77,8 +78,22 @@ namespace Presentation.Views
             Console.ReadKey();
         }
 
+        private void LogOut()
+        {
+            List<CartItem> cartItems = _cartService.GetCartItems();
+
+            if (cartItems.Count != 0)
+            {
+                for (int i = 0; i < cartItems.Count; i++)
+                {
+                    _cartService.RemoveFromCart(cartItems[i].Product.Id);
+                }
+            }
+        }
+
         private void Exit()
         {
+            LogOut();
             WaitForKey("\nPress any key to exit ...");
             Environment.Exit(0);
         }
