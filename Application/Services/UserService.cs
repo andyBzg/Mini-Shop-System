@@ -23,10 +23,10 @@ namespace Application.Services
             }
             else
             {
-                Guid guid = Guid.NewGuid();
+                Guid id = Guid.NewGuid();
                 string hashedPassword = _passwordHasher.HashPassword(password);
-                User user = new User(username, email, hashedPassword);
-                _userRepository.Add(guid, user);
+                User user = new User(id, username, email, hashedPassword);
+                _userRepository.Add(id, user);
                 return true;
             }
         }
