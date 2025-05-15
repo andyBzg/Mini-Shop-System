@@ -52,5 +52,10 @@ namespace Application.Services
             _cartItems.Remove(cartItem);
             return true;
         }
+
+        public void ClearCart()
+        {
+            _cartItems.Clear();
+        }
     }
 }

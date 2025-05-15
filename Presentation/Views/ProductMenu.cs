@@ -84,7 +84,7 @@ namespace Presentation.Views
             Console.Clear();
             Console.WriteLine($"Product Title: {selectedProduct.Name}");
             Console.WriteLine($"Description: {selectedProduct.Description}");
-            Console.WriteLine($"Price: {selectedProduct.Price}");
+            Console.WriteLine($"Price: {selectedProduct.Price} EUR");
             Console.WriteLine($"Stock: {selectedProduct.Stock}");
         }
 
