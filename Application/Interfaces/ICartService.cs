@@ -4,7 +4,8 @@ namespace Application.Interfaces
 {
     public interface ICartService
     {
-        bool AddToCart(Guid id, int quantity);
         List<CartItem> GetCartItems();
+        bool AddToCart(Guid id, int quantity);
+        bool RemoveFromCart(Guid id);
     }
 }

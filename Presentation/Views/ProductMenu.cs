@@ -55,8 +55,13 @@ namespace Presentation.Views
 
                         if (check && quantity > 0 && quantity <= currentProduct.Stock)
                         {
-                            _cartService.AddToCart(currentProduct.Id, quantity);
-                            Console.WriteLine($"Successfully added {quantity} item(s) to Shopping Cart");
+                            bool sucess = _cartService.AddToCart(currentProduct.Id, quantity);
+                            
+                            if (sucess)
+                                Console.WriteLine($"Successfully added {quantity} item(s) to Shopping Cart");
+                            else 
+                                Console.WriteLine("Fail! Something went wrong");
+                            
                             WaitForKey("\nPress any key to continiue ...");
                             break;
                         }

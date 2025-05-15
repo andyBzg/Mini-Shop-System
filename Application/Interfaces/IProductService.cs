@@ -10,5 +10,6 @@ namespace Application.Interfaces
         bool UpdateProduct(Guid id, string name, string description, decimal price, int stock);
         bool DeleteProduct(Guid id);
         bool ReduceProductQuantity(Guid id, int quantity);
+        bool IncreaseProductQuantity(Guid id, int quantity);
     }
 }
