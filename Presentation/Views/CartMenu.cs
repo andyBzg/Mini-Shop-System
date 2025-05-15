@@ -7,12 +7,14 @@ namespace Presentation.Views
     internal class CartMenu
     {
         private readonly ICartService _cartService;
-        //private readonly IOrderService _orderService; // TODO need order service implementation
+        private readonly IOrderService _orderService;
+        private readonly Guid _userId;
 
-        public CartMenu(ICartService cartService)//, IOrderService orderService)
+        public CartMenu(ICartService cartService, IOrderService orderService, Guid userId)
         {
             _cartService = cartService;
-            //_orderService = orderService;
+            _orderService = orderService;
+            _userId = userId;
         }
 
         public void RunCartMenu()
@@ -31,14 +33,14 @@ namespace Presentation.Views
 
                 string cartInfo = GetTotalAmount(cartItems);
                 string prompt = cartInfo + "\nPlease select Shopping Cart Item (Press ESC to go back)\n";
-                string[] options = cartItems.Select(ci => $"{ci.Product.Name} | Amount: {ci.Quantity} | Total Price: {ci.TotalPrice}").ToArray();
+                string[] options = cartItems.Select(ci => $"{ci.Product.Name} | Amount: {ci.Quantity} | Total Price: {ci.TotalPrice} EUR").ToArray();
 
                 Menu cartMenu = new Menu(prompt, options);
                 int index = cartMenu.Run();
 
                 if (index == -1 && cartItems.Count > 0)
                 {
-                    Console.WriteLine("\nWould you like to add order? \n(Enter to confirm; ESC to continue shopping)");
+                    Console.WriteLine("\nWould you like to add cart items to a new order?\n(Enter to confirm; ESC to continue shopping)");
                     ConsoleKey keyPressed;
                     do
                     {
@@ -48,10 +50,10 @@ namespace Presentation.Views
                             break;
                         else if (keyPressed == ConsoleKey.Enter)
                         {
-                            //_orderService.AddOrder(cartItems); 
+                            _orderService.AddOrder(_userId, cartItems);
                             _cartService.ClearCart();
-                            Console.WriteLine("Order Added Success!");
-                            WaitForKey("Press anything");
+                            Console.WriteLine("Sucessfully added cart items to order!");
+                            WaitForKey("\nPress any key to continiue ...");
                         }
                     }
                     while (keyPressed != ConsoleKey.Escape && keyPressed != ConsoleKey.Enter);                    

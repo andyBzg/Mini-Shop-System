@@ -6,23 +6,25 @@ namespace Presentation.Views
 {
     internal class CustomerMenu
     {
-        private readonly User _user;
+        private readonly Guid _userId;
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
+        private readonly IOrderService _orderService;
 
-        public CustomerMenu(User user, IProductService productService, ICartService cartService)
+        public CustomerMenu(Guid userId, IProductService productService, ICartService cartService, IOrderService orderService)
         {
-            _user = user;
+            _userId = userId;
             _productService = productService;
             _cartService = cartService;
+            _orderService = orderService;
         }
 
         public void RunCustomerMenu()
         {
             while (true)
             {
-                string prompt = $"Welcome {_user.Username}! What would you like to do?";
-                string[] options = { "Browse Products", "View Cart", "Place Order", "Log out", "Exit" };
+                string prompt = $"What would you like to do?";
+                string[] options = { "Browse Products", "View Cart", "Manage Orders", "Log out", "Exit" };
 
                 Menu adminMenu = new Menu(prompt, options);
                 int selectedIndex = adminMenu.Run();
@@ -36,7 +38,7 @@ namespace Presentation.Views
                         ViewCart();
                         break;
                     case 2:
-                        PlaceOrder();
+                        ManageOrders();
                         break;
                     case 3:
                         LogOut();
@@ -67,15 +69,14 @@ namespace Presentation.Views
 
         private void ViewCart()
         {
-            CartMenu cartMenu = new CartMenu(_cartService);
+            CartMenu cartMenu = new CartMenu(_cartService, _orderService, _userId);
             cartMenu.RunCartMenu();
         }
 
-        private void PlaceOrder()
+        private void ManageOrders()
         {
-            //TODO implement logic to place an order 
-            Console.WriteLine("Order placed!");
-            Console.ReadKey();
+            OrderMenu orderMenu = new OrderMenu(_orderService, _productService, _userId);
+            orderMenu.RunOrderMenu();
         }
 
         private void LogOut()

@@ -17,5 +17,9 @@ IProductService productService = new ProductService(productRepository);
 List<CartItem> cartItems = new List<CartItem>();
 ICartService cartService = new CartService(cartItems, productService);
 
-MainMenu mainMenu = new MainMenu(userService, productService, cartService);
+string orderRepositoryFilePath = "order_database.json";
+IOrderRepository orderRepository = new OrderRepository(orderRepositoryFilePath);
+IOrderService orderService = new OrderService(orderRepository, productService);
+
+MainMenu mainMenu = new MainMenu(userService, productService, cartService, orderService);
 mainMenu.RunMainMenu();

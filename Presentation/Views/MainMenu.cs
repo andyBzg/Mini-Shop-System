@@ -10,12 +10,14 @@ namespace Presentation.Views
         private readonly IUserService _userService;
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
+        private IOrderService _orderService;
 
-        public MainMenu(IUserService userService, IProductService productService, ICartService cartService)
+        public MainMenu(IUserService userService, IProductService productService, ICartService cartService, IOrderService orderService)
         {
             _userService = userService;
             _productService = productService;
             _cartService = cartService;
+            _orderService = orderService;
         }
 
         public void RunMainMenu()
@@ -91,7 +93,7 @@ namespace Presentation.Views
                 }
                 else
                 {
-                    CustomerMenu customerMenu = new CustomerMenu(currentUser, _productService, _cartService);
+                    CustomerMenu customerMenu = new CustomerMenu(currentUser.Id, _productService, _cartService, _orderService);
                     customerMenu.RunCustomerMenu();
                 }
             }
