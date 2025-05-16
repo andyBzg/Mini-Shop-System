@@ -23,9 +23,8 @@ namespace Application.Services
         }
 
         public bool AddNewProduct(string name, string description, decimal price, int stock)
-        {
-            Guid id = Guid.NewGuid();
-            Product product = new Product(id, name, description, price, stock);
+        {            
+            Product product = new Product(name, description, price, stock);
             _productRepository.Save(product);
             return true;
         }
