@@ -1,16 +1,16 @@
 ﻿using Application.Interfaces;
 using Application.Models;
-using Presentation.UI;
 
-namespace Presentation.Views
+namespace Presentation.UI.Menus
 {
-    internal class CartMenu
+    internal class CartMenu : BaseMenu
     {
         private readonly ICartService _cartService;
         private readonly IOrderService _orderService;
         private readonly Guid _userId;
 
         public CartMenu(ICartService cartService, IOrderService orderService, Guid userId)
+            : base(string.Empty, Array.Empty<string>())
         {
             _cartService = cartService;
             _orderService = orderService;
@@ -25,18 +25,17 @@ namespace Presentation.Views
 
                 if (cartItems.Count == 0)
                 {
-                    Console.Clear();
-                    Console.WriteLine("Shopping cart is empty");
+                    DisplayTitle("Shopping Cart");
+                    Console.WriteLine("Cart is empty");
                     WaitForKey("\nPress any key to continiue ...");
                     return;
                 }
 
                 string cartInfo = GetTotalAmount(cartItems);
-                string prompt = cartInfo + "\nPlease select Shopping Cart Item (Press ESC to go back)\n";
-                string[] options = cartItems.Select(ci => $"{ci.Product.Name} | Amount: {ci.Quantity} | Total Price: {ci.TotalPrice} EUR").ToArray();
+                Prompt = cartInfo + "\nPlease select Shopping Cart Item (Press ESC to go back)\n";
+                Options = cartItems.Select(ci => $"{ci.Product.Name} | Amount: {ci.Quantity} | Total Price: {ci.TotalPrice} EUR").ToArray();
 
-                Menu cartMenu = new Menu(prompt, options);
-                int index = cartMenu.Run();
+                int index = Run();
 
                 if (index == -1 && cartItems.Count > 0)
                 {
@@ -101,19 +100,13 @@ namespace Presentation.Views
 
         private void ShowItemDetails(CartItem cartItem)
         {
-            Console.Clear();
+            DisplayTitle("Details");
             Console.WriteLine($"Product Title: {cartItem.Product.Name}");
             Console.WriteLine($"Description: {cartItem.Product.Description}");
             Console.WriteLine($"Price: {cartItem.Product.Price} EUR");
             Console.WriteLine($"Amount: {cartItem.Quantity}");
             Console.WriteLine("------------------------");
             Console.WriteLine($"Total Price: {cartItem.TotalPrice} EUR");
-        }
-
-        private void WaitForKey(string? message = null)
-        {
-            Console.WriteLine(message);
-            Console.ReadKey(true);
         }
     }
 }

@@ -1,21 +1,23 @@
-﻿namespace Presentation.UI
+﻿namespace Presentation.UI.Menus
 {
-    internal class Menu
+    internal abstract class BaseMenu
     {
-        public int SelectedIndex;
-        public string[] Options;
-        public string Prompt;
+        protected int SelectedIndex;
+        protected string[] Options;
+        protected string Prompt;
 
-        public Menu(string prompt, string[] options)
+        protected BaseMenu(string prompt, string[] options)
         {
             Prompt = prompt;
             Options = options;
             SelectedIndex = 0;
         }
 
-        private void DisplayOptions()
+        protected void DisplayOptions()
         {
+            Console.Clear();
             Console.WriteLine(Prompt);
+
             for (int i = 0; i < Options.Length; i++)
             {
                 string currentOption = Options[i];
@@ -38,12 +40,12 @@
             Console.ResetColor();
         }
 
-        public int Run()
+        public virtual int Run()
         {
             ConsoleKey keyPressed;
+
             do
             {
-                Console.Clear();
                 DisplayOptions();
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
@@ -69,6 +71,31 @@
             } while (keyPressed != ConsoleKey.Enter);
 
             return SelectedIndex;
+        }
+
+        protected void WaitForKey(string? message = null)
+        {
+            if (!string.IsNullOrWhiteSpace(message))
+                Console.WriteLine(message);
+
+            Console.ReadKey(true);
+        }
+
+        protected void DisplayTitle(string title)
+        {
+            Console.Clear();
+            Console.WriteLine($"======== {title} ========\n");
+        }
+
+        protected ConsoleKey WaitForEnterOrEscape()
+        {
+            while (true)
+            {
+                ConsoleKey key = Console.ReadKey(true).Key;
+
+                if (key == ConsoleKey.Enter || key == ConsoleKey.Escape)
+                    return key;
+            }
         }
     }
 }

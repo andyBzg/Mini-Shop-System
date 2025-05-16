@@ -1,14 +1,14 @@
 ﻿using Application.Models;
-using Presentation.UI;
 
-namespace Presentation.Views
+namespace Presentation.UI.Menus
 {
 
-    internal class AdminMenu
+    internal class AdminMenu : BaseMenu
     {
         private readonly User _user;
 
         public AdminMenu(User user)
+            : base($"Welcome {user.Username}! What would you like to do?", ["Product Management", "User Management", "Statistics", "Back", "Exit"])
         {
             _user = user;
         }
@@ -17,11 +17,7 @@ namespace Presentation.Views
         {
             while (true)
             {
-                string prompt = $"Welcome {_user.Username}! What would you like to do?";
-                string[] options = { "Product Management", "User Management", "Statistics", "Back", "Exit" };
-
-                Menu adminMenu = new Menu(prompt, options);
-                int selectedIndex = adminMenu.Run();
+                int selectedIndex = Run();
 
                 switch (selectedIndex)
                 {
@@ -47,22 +43,22 @@ namespace Presentation.Views
 
         private void ManageProducts()
         {
+            DisplayTitle("Product Management");
             //TODO implement product management for admin
-            Console.WriteLine("Placeholder for product management section");
             ReturnToAdminMenu();
         }
 
         private void ManageUsers()
         {
+            DisplayTitle("User Management");
             //TODO implement user management for admin
-            Console.WriteLine("Placeholder for user management section");
             ReturnToAdminMenu();
         }
 
         private void DisplayStatistics()
         {
+            DisplayTitle("Statistics");
             //TODO implement statistics for admin
-            Console.WriteLine("Placeholder for statistics section");
             ReturnToAdminMenu();
         }
 
@@ -70,12 +66,6 @@ namespace Presentation.Views
         {
             WaitForKey("\nPress any key to exit ...");
             Environment.Exit(0);
-        }
-
-        private void WaitForKey(string? message = null)
-        {
-            Console.WriteLine(message);
-            Console.ReadKey(true);
         }
 
         private void ReturnToAdminMenu()

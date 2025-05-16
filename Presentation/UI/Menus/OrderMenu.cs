@@ -1,15 +1,15 @@
 ﻿using Application.Interfaces;
 using Application.Models;
-using Presentation.UI;
 
-namespace Presentation.Views
+namespace Presentation.UI.Menus
 {
-    internal class OrderMenu
+    internal class OrderMenu : BaseMenu
     {
         private readonly IOrderService _orderService;
         private readonly Guid _userId;
 
         public OrderMenu(IOrderService orderService, Guid userId)
+            : base("Please select Order from List below (Press ESC to go back)\n", Array.Empty<string>())
         {
             _orderService = orderService;
             _userId = userId;
@@ -23,17 +23,15 @@ namespace Presentation.Views
 
                 if (pendingOrders.Count == 0)
                 {
-                    Console.Clear();
+                    DisplayTitle("Pending orders");
                     Console.WriteLine("You have no pending orders.");
                     WaitForKey("\nPress any key to continiue ...");
                     return;
                 }
 
-                string prompt = "Please select Order from List below (Press ESC to go back)\n";
-                string[] options = pendingOrders.Select((po, i) => $"Order #{i + 1}: {po.TotalPrice} EUR").ToArray();
+                Options = pendingOrders.Select((po, i) => $"Order #{i + 1}: {po.TotalPrice} EUR").ToArray();
 
-                Menu orderMenu = new Menu(prompt, options);
-                int index = orderMenu.Run();
+                int index = Run();
 
                 if (index == -1)
                     break;
@@ -69,7 +67,7 @@ namespace Presentation.Views
             List<CartItem> items = order.Items;
             string status = order.IsConfirmed == false ? "The order is waiting to be placed." : "The order has been placed.";
 
-            Console.Clear();
+            DisplayTitle("Details");
             Console.WriteLine("List of Products:\n");
             items.ForEach(item => Console.WriteLine($"{item.Product.Name} | Amount: {item.Quantity} | Price: {item.TotalPrice} EUR"));
             Console.WriteLine("------");
@@ -77,12 +75,6 @@ namespace Presentation.Views
             Console.WriteLine("------");
             Console.WriteLine($"Time created: {order.CreatedAt.ToString("dd.MM.yyyy | HH:mm")}");
             Console.WriteLine($"Order status: {status}");
-        }
-
-        private void WaitForKey(string? message = null)
-        {
-            Console.WriteLine(message);
-            Console.ReadKey(true);
         }
     }
 }

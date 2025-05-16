@@ -1,15 +1,15 @@
 ﻿using Application.Interfaces;
 using Application.Models;
-using Presentation.UI;
 
-namespace Presentation.Views
+namespace Presentation.UI.Menus
 {
-    internal class ProductMenu
+    internal class ProductMenu : BaseMenu
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
 
         public ProductMenu(IProductService productService, ICartService cartService)
+            : base("Please select a Product (Press ESC to go back)", Array.Empty<string>())
         {
             _productService = productService;
             _cartService = cartService;
@@ -19,27 +19,34 @@ namespace Presentation.Views
         {
             while (true)
             {
-                string prompt = "Please select a Product (Press ESC to go back)";
                 List<Product> products = _productService.GetAvailableProducts();
-                string[] options = products.Select(p => p.Name).ToArray();
 
-                Menu productMenu = new Menu(prompt, options);
-                int index = productMenu.Run();
+                if (products.Count == 0)
+                {
+                    DisplayTitle("Available products");
+                    Console.WriteLine("No available products");
+                    WaitForKey("\nPress any key to continiue ...");
+                    break;
+                }
+
+                Options = products.Select(p => p.Name).ToArray();
+                int index = Run();
 
                 if (index == -1)
                     break;
 
                 Guid selectedProductId = products[index].Id;
-                Product? currentProduct = _productService.GetProductById(selectedProductId);
+                Product? selectedProduct = _productService.GetProductById(selectedProductId);
 
-                if (currentProduct == null)
+                if (selectedProduct == null)
                 {
                     Console.WriteLine("Selected product not found");
+                    WaitForKey("\nPress any key to continiue ...");
                     break;
                 }
 
-                ShowSelectedProductDetails(currentProduct);
-                HandleProductAction(currentProduct);                
+                ShowSelectedProductDetails(selectedProduct);
+                HandleProductAction(selectedProduct);
             }
         }
 
@@ -79,19 +86,13 @@ namespace Presentation.Views
             }
         }
 
-        private static void ShowSelectedProductDetails(Product selectedProduct)
+        private void ShowSelectedProductDetails(Product selectedProduct)
         {
-            Console.Clear();
+            DisplayTitle("Details");
             Console.WriteLine($"Product Title: {selectedProduct.Name}");
             Console.WriteLine($"Description: {selectedProduct.Description}");
             Console.WriteLine($"Price: {selectedProduct.Price} EUR");
             Console.WriteLine($"Stock: {selectedProduct.Stock}");
-        }
-
-        private void WaitForKey(string? message = null)
-        {
-            Console.WriteLine(message);
-            Console.ReadKey(true);
         }
     }
 }

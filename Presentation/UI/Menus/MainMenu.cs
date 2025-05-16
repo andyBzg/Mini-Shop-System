@@ -1,11 +1,10 @@
 ﻿using Application;
 using Application.Interfaces;
 using Application.Models;
-using Presentation.UI;
 
-namespace Presentation.Views
+namespace Presentation.UI.Menus
 {
-    internal class MainMenu
+    internal class MainMenu : BaseMenu
     {
         private readonly IUserService _userService;
         private readonly IProductService _productService;
@@ -13,6 +12,7 @@ namespace Presentation.Views
         private IOrderService _orderService;
 
         public MainMenu(IUserService userService, IProductService productService, ICartService cartService, IOrderService orderService)
+            : base("Welcome to Mini-Shop! What would you like to do?", ["Register", "Login", "About", "Exit"])
         {
             _userService = userService;
             _productService = productService;
@@ -24,12 +24,7 @@ namespace Presentation.Views
         {
             while (true)
             {
-                string prompt = "Welcome to Mini-Shop! What would you like to do?" +
-                    "\n(Use the arrow keys to navigate through options and press ENTER to select an option.)";
-                string[] options = { "Register", "Login", "About", "Exit" };
-
-                Menu mainMenu = new Menu(prompt, options);
-                int selectedIndex = mainMenu.Run();
+                int selectedIndex = Run();
 
                 switch (selectedIndex)
                 {
@@ -53,7 +48,7 @@ namespace Presentation.Views
 
         private void RegisterNewUser()
         {
-            Console.Clear();
+            DisplayTitle("User Registration");
             Console.WriteLine("Enter Username: ");
             string username = (Console.ReadLine() ?? string.Empty).Trim();
             Console.WriteLine("Enter Email: ");
@@ -72,7 +67,7 @@ namespace Presentation.Views
 
         private void Login()
         {
-            Console.Clear();
+            DisplayTitle("Log in");
             Console.WriteLine("Enter Email: ");
             string email = (Console.ReadLine() ?? string.Empty).Trim();
             Console.WriteLine("Enter Password: ");
@@ -106,13 +101,14 @@ namespace Presentation.Views
 
         private void DisplayAboutInfo()
         {
-            Console.Clear();
+            DisplayTitle("About");
             Console.WriteLine("This e-commerce demo app was created by Andrei Bezgatsev.");
             ReturnToMainMenu();
         }
 
         private void Exit()
         {
+            DisplayTitle("Goodbye!");
             WaitForKey("\nPress any key to exit ...");
             Environment.Exit(0);
         }
@@ -121,12 +117,6 @@ namespace Presentation.Views
         {
             WaitForKey("\nPress any key to return to main menu.");
             RunMainMenu();
-        }
-
-        private void WaitForKey(string? message = null)
-        {
-            Console.WriteLine(message);
-            Console.ReadKey(true);
         }
     }
 }

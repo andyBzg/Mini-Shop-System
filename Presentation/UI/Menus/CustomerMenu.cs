@@ -1,10 +1,9 @@
 ﻿using Application.Interfaces;
 using Application.Models;
-using Presentation.UI;
 
-namespace Presentation.Views
+namespace Presentation.UI.Menus
 {
-    internal class CustomerMenu
+    internal class CustomerMenu : BaseMenu
     {
         private readonly Guid _userId;
         private readonly IProductService _productService;
@@ -12,6 +11,7 @@ namespace Presentation.Views
         private readonly IOrderService _orderService;
 
         public CustomerMenu(Guid userId, IProductService productService, ICartService cartService, IOrderService orderService)
+            : base("What would you like to do?", ["Browse Products", "View Cart", "Manage Orders", "Show order history", "Log out", "Exit"])
         {
             _userId = userId;
             _productService = productService;
@@ -23,11 +23,7 @@ namespace Presentation.Views
         {
             while (true)
             {
-                string prompt = $"What would you like to do?";
-                string[] options = { "Browse Products", "View Cart", "Manage Orders", "Show order history", "Log out", "Exit" };
-
-                Menu adminMenu = new Menu(prompt, options);
-                int selectedIndex = adminMenu.Run();
+                int selectedIndex = Run();
 
                 switch (selectedIndex)
                 {
@@ -60,6 +56,7 @@ namespace Presentation.Views
             List<Product> products = _productService.GetAvailableProducts();
             if (products.Count == 0)
             {
+                DisplayTitle("Browse Products");
                 Console.WriteLine("Product list is empty");
                 WaitForKey("\n Press any key to continiue ...");
             }
@@ -99,12 +96,6 @@ namespace Presentation.Views
             LogOut();
             WaitForKey("\nPress any key to exit ...");
             Environment.Exit(0);
-        }
-
-        private void WaitForKey(string? message = null)
-        {
-            Console.WriteLine(message);
-            Console.ReadKey(true);
         }
     }
 }
