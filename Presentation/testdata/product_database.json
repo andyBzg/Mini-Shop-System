@@ -1,0 +1,98 @@
+[
+  {
+    "id": "1a3e5b17-8fca-4b9b-8c2d-3fcd8761d2d1",
+    "name": "Wireless Mouse",
+    "description": "Ergonomic wireless mouse with USB receiver",
+    "price": 25.99,
+    "stock": 100,
+    "is_deleted": false
+  },
+  {
+    "id": "f9a4b8e2-3c72-4b8f-9e7b-8d92a4e1d5f3",
+    "name": "Mechanical Keyboard",
+    "description": "RGB backlit mechanical keyboard with blue switches",
+    "price": 75.50,
+    "stock": 50,
+    "is_deleted": false
+  },
+  {
+    "id": "7d2f6c8a-54d7-4c92-9c67-cac3a4ef7412",
+    "name": "27-inch Monitor",
+    "description": "Full HD 1080p LED monitor with HDMI input",
+    "price": 189.99,
+    "stock": 30,
+    "is_deleted": false
+  },
+  {
+    "id": "3b6f8a2c-e3d1-4eaf-9c5e-917b9e6f5d22",
+    "name": "USB-C Hub",
+    "description": "7-in-1 USB-C hub with HDMI and Ethernet ports",
+    "price": 45.00,
+    "stock": 75,
+    "is_deleted": false
+  },
+  {
+    "id": "ad7f3e49-cb9a-4f7e-8e0d-88f7b1c2f01d",
+    "name": "Noise Cancelling Headphones",
+    "description": "Over-ear wireless noise cancelling headphones",
+    "price": 129.99,
+    "stock": 20,
+    "is_deleted": false
+  },
+  {
+    "id": "d9a5e2bc-6d4e-43f2-bf83-1fae2b3d8e4c",
+    "name": "Bluetooth Speaker",
+    "description": "Portable waterproof Bluetooth speaker",
+    "price": 59.95,
+    "stock": 60,
+    "is_deleted": false
+  },
+  {
+    "id": "8c12d784-5e3a-4c67-93b5-7f11a3f88d9e",
+    "name": "Smartwatch",
+    "description": "Fitness tracker smartwatch with heart rate monitor",
+    "price": 99.49,
+    "stock": 40,
+    "is_deleted": true
+  },
+  {
+    "id": "c45a3f29-8a72-4df6-9f6e-229a12e7fa73",
+    "name": "External Hard Drive",
+    "description": "2TB USB 3.0 external hard drive",
+    "price": 85.30,
+    "stock": 25,
+    "is_deleted": false
+  },
+  {
+    "id": "ea7d3c95-59f8-43f9-8d6b-34a5d3b11e18",
+    "name": "Gaming Chair",
+    "description": "Ergonomic gaming chair with adjustable height",
+    "price": 199.99,
+    "stock": 15,
+    "is_deleted": true
+  },
+  {
+    "id": "bb2c97e5-c0a1-4ad5-a22a-2cc8e18ae3e7",
+    "name": "Webcam",
+    "description": "1080p HD webcam with built-in microphone",
+    "price": 49.89,
+    "stock": 80,
+    "is_deleted": false
+  },
+  {
+    "id": "2f8b62d6-5a9f-4e1a-9b10-7d73fbdc6a44",
+    "name": "Laptop Stand",
+    "description": "Adjustable aluminum laptop stand",
+    "price": 29.95,
+    "stock": 100,
+    "is_deleted": false
+  },
+  {
+    "id": "97c9eb8a-03de-4f71-aaf9-1bb4f0b7f49f",
+    "name": "Wireless Charger",
+    "description": "Fast wireless charging pad for smartphones",
+    "price": 22.45,
+    "stock": 90,
+    "is_deleted": true
+  }
+]

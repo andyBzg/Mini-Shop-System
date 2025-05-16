@@ -1,0 +1,68 @@
+[
+  {
+    "id": "203490d1-3754-4692-bfc8-ecdfce95fb2b",
+    "user_id": "22875dba-9f69-4207-9e63-757869865864",
+    "items": [
+      {
+        "product": {
+          "id": "1a3e5b17-8fca-4b9b-8c2d-3fcd8761d2d1",
+          "name": "Wireless Mouse",
+          "description": "Ergonomic wireless mouse with USB receiver",
+          "price": 25.99,
+          "stock": 100,
+          "is_deleted": false
+        },
+        "quantity": 1,
+        "total_price": 25.99
+      },
+      {
+        "product": {
+          "id": "f9a4b8e2-3c72-4b8f-9e7b-8d92a4e1d5f3",
+          "name": "Mechanical Keyboard",
+          "description": "RGB backlit mechanical keyboard with blue switches",
+          "price": 75.50,
+          "stock": 50,
+          "is_deleted": false
+        },
+        "quantity": 1,
+        "total_price": 75.50
+      },
+      {
+        "product": {
+          "id": "7d2f6c8a-54d7-4c92-9c67-cac3a4ef7412",
+          "name": "27-inch Monitor",
+          "description": "Full HD 1080p LED monitor with HDMI input",
+          "price": 189.99,
+          "stock": 30,
+          "is_deleted": false
+        },
+        "quantity": 1,
+        "total_price": 189.99
+      }
+    ],
+    "total_price": 291.48,
+    "created_at": "2025-05-16T16:48:22.632047Z",
+    "is_confirmed": true
+  },
+  {
+    "id": "cf580640-75ce-49e7-8f09-f2bdc253bf8f",
+    "user_id": "22875dba-9f69-4207-9e63-757869865864",
+    "items": [
+      {
+        "product": {
+          "id": "2f8b62d6-5a9f-4e1a-9b10-7d73fbdc6a44",
+          "name": "Laptop Stand",
+          "description": "Adjustable aluminum laptop stand",
+          "price": 29.95,
+          "stock": 100,
+          "is_deleted": false
+        },
+        "quantity": 12,
+        "total_price": 359.40
+      }
+    ],
+    "total_price": 359.40,
+    "created_at": "2025-05-16T16:48:48.3115591Z",
+    "is_confirmed": true
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "1f7fcc48-30b9-410d-b585-8af9e5938b99": {
+    "id": "1f7fcc48-30b9-410d-b585-8af9e5938b99",
+    "username": "Administrator",
+    "email": "admin@example.com",
+    "password_hash": "QJhgG0XDXiDq1dOViqt0ze41sY3EOURVGITKbdzAmW5GLYqIfCYHZ7fu2a2IiDQW",
+    "role": 0,
+    "is_deleted": false
+  },
+  "22875dba-9f69-4207-9e63-757869865864": {
+    "id": "22875dba-9f69-4207-9e63-757869865864",
+    "username": "Test User",
+    "email": "test@example.com",
+    "password_hash": "glIJb6Ogw84i01F2oWSR96AJmvAYwWI\u002B/9\u002BD01\u002BZpt3K5d7cwZtZlRY9XG1wbR34",
+    "role": 1,
+    "is_deleted": false
+  }
+}
