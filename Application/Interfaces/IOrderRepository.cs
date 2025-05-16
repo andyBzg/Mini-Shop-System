@@ -4,7 +4,9 @@ namespace Application.Interfaces
 {
     public interface IOrderRepository
     {
-        void SaveOrder(Order order);
-        List<Order> LoadOrders();
+        List<Order> LoadAll();
+        Order? GetById(Guid id);
+        void Save(Order order);
+        void Update(Order order);
     }
 }
