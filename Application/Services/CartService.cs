@@ -57,5 +57,17 @@ namespace Application.Services
         {
             _cartItems.Clear();
         }
+
+        public void ClearCartOnLogout()
+        {
+            List<CartItem> cartItems = GetCartItems();
+            if (cartItems.Count != 0)
+            {
+                for (int i = 0; i < cartItems.Count; i++)
+                {
+                    RemoveFromCart(cartItems[i].Product.Id);
+                }
+            }
+        }
     }
 }

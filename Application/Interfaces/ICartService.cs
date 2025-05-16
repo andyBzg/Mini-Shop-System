@@ -8,5 +8,6 @@ namespace Application.Interfaces
         bool AddToCart(Guid id, int quantity);
         bool RemoveFromCart(Guid id);
         void ClearCart();
+        void ClearCartOnLogout();
     }
 }

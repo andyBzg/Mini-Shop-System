@@ -24,7 +24,7 @@ namespace Presentation.Views
             while (true)
             {
                 string prompt = $"What would you like to do?";
-                string[] options = { "Browse Products", "View Cart", "Manage Orders", "Log out", "Exit" };
+                string[] options = { "Browse Products", "View Cart", "Manage Orders", "Show order history", "Log out", "Exit" };
 
                 Menu adminMenu = new Menu(prompt, options);
                 int selectedIndex = adminMenu.Run();
@@ -41,9 +41,12 @@ namespace Presentation.Views
                         ManageOrders();
                         break;
                     case 3:
+                        ShowOrderHistory();
+                        break;
+                    case 4:
                         LogOut();
                         return;
-                    case 4:
+                    case 5:
                         Exit();
                         break;
                     default:
@@ -75,21 +78,20 @@ namespace Presentation.Views
 
         private void ManageOrders()
         {
-            OrderMenu orderMenu = new OrderMenu(_orderService, _productService, _userId);
+            OrderMenu orderMenu = new OrderMenu(_orderService, _userId);
             orderMenu.RunOrderMenu();
+        }
+
+        private void ShowOrderHistory()
+        {
+            OrderHistoryMenu orderHistoryMenu = new OrderHistoryMenu(_orderService, _userId);
+            orderHistoryMenu.RunOrderHistoryMenu();
         }
 
         private void LogOut()
         {
-            List<CartItem> cartItems = _cartService.GetCartItems();
-
-            if (cartItems.Count != 0)
-            {
-                for (int i = 0; i < cartItems.Count; i++)
-                {
-                    _cartService.RemoveFromCart(cartItems[i].Product.Id);
-                }
-            }
+            _cartService.ClearCartOnLogout();
+            _orderService.DiscardPendingOrders(_userId);
         }
 
         private void Exit()

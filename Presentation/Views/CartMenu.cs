@@ -56,7 +56,7 @@ namespace Presentation.Views
                             WaitForKey("\nPress any key to continiue ...");
                         }
                     }
-                    while (keyPressed != ConsoleKey.Escape && keyPressed != ConsoleKey.Enter);                    
+                    while (keyPressed != ConsoleKey.Escape && keyPressed != ConsoleKey.Enter);
                 }
 
                 if (index == -1)
