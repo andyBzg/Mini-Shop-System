@@ -49,14 +49,12 @@ namespace Presentation.UI.Menus
         private void RegisterNewUser()
         {
             DisplayTitle("User Registration");
-            Console.WriteLine("Enter Username: ");
-            string username = (Console.ReadLine() ?? string.Empty).Trim();
-            Console.WriteLine("Enter Email: ");
-            string email = (Console.ReadLine() ?? string.Empty).Trim();
-            Console.WriteLine("Enter Password: ");
-            string password = (Console.ReadLine() ?? string.Empty).Trim();
+            string username = ReadNonEmptyInput("Enter Username: ");
+            string email = ReadNonEmptyInput("Enter Email: ");
+            string password = ReadConfirmedPassword("Password");
 
             bool isSuccess = _userService.Register(username, email, password);
+
             if (isSuccess)
                 Console.WriteLine("Registration Successful");
             else
@@ -65,13 +63,39 @@ namespace Presentation.UI.Menus
             ReturnToMainMenu();
         }
 
+        private string ReadConfirmedPassword(string v)
+        {
+            while (true)
+            {
+                string password = ReadNonEmptyInput("Enter Password: ");
+                string passwordConfirmation = ReadNonEmptyInput("Confirm Password: ");
+
+                if (password == passwordConfirmation)
+                    return password;
+                else
+                    Console.WriteLine("Passwords do not match. Try again.");
+            }
+        }
+
+        private string ReadNonEmptyInput(string message)
+        {
+            string input;
+            do
+            {
+                Console.Write(message);
+                input = (Console.ReadLine() ?? string.Empty).Trim();
+                if (string.IsNullOrWhiteSpace(input))
+                    Console.WriteLine("Input cannot be empty");
+            } while (string.IsNullOrWhiteSpace(input));
+
+            return input;
+        }
+
         private void Login()
         {
             DisplayTitle("Log in");
-            Console.WriteLine("Enter Email: ");
-            string email = (Console.ReadLine() ?? string.Empty).Trim();
-            Console.WriteLine("Enter Password: ");
-            string password = (Console.ReadLine() ?? string.Empty).Trim();
+            string email = ReadNonEmptyInput("Enter Email: ");
+            string password = ReadNonEmptyInput("Enter Password: ");
 
             User? currentUser = _userService.Login(email, password);
 
@@ -79,7 +103,7 @@ namespace Presentation.UI.Menus
             {
                 Console.Clear();
                 Console.WriteLine($"Welcome, {currentUser.Username}! ({currentUser.Role.ToString()})");
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
 
                 if (currentUser.Role == UserRole.Admin)
                 {
