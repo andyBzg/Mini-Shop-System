@@ -11,9 +11,6 @@ namespace Application.Services
 
         public string HashPassword(string plainPassword)
         {
-            if (string.IsNullOrEmpty(plainPassword))
-                throw new ArgumentException("Password cannot be null or empty", nameof(plainPassword));
-
             byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
 
             using var pbkdf2 = new Rfc2898DeriveBytes(plainPassword, salt, Iterations, HashAlgorithmName.SHA256);
@@ -28,12 +25,6 @@ namespace Application.Services
 
         public bool VerifyPassword(string plainPassword, string storedPassword)
         {
-            if (string.IsNullOrEmpty(plainPassword))
-                throw new ArgumentException("Password cannot be null or empty", nameof(plainPassword));
-
-            if (string.IsNullOrEmpty(storedPassword))
-                throw new ArgumentException("Hashed Password cannot be null or empty", nameof(storedPassword));
-
             byte[] hashBytes = Convert.FromBase64String(storedPassword);
 
             byte[] salt = new byte[SaltSize];
